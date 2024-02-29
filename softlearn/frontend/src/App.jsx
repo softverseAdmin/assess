@@ -13,10 +13,9 @@ function App() {
     <> 
     <ToastContainer />
         <Routes>
-          <Route path="/signin" element={ <SignIn/> }/>
+          <Route path="/" element={ <SignIn/> }/>
           <Route path="/signup" element={ <SignUp/> }/>
           <Route path="/signup/student" element={ <StudentSignUp/> }/>
-          {/* <Route path="/" element={<MenuLayout><div className="h-screen">Home</div></MenuLayout> }/> */}
           <Route path="/menu/profile" element={<MenuLayout><div className="h-screen">Profile</div></MenuLayout> }/>
           <Route path="/menu/grammar" element={<MenuLayout><div className="h-screen">Grammar</div></MenuLayout> }/>
           <Route path="/menu/quiz" element={<MenuLayout><div className="h-screen">Quiz</div></MenuLayout> }/>

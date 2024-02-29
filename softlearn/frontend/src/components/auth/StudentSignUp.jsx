@@ -369,7 +369,7 @@ const StudentSignUp = () => {
                 <p>
                   Already a user?{" "}
                   <Link
-                    to="/signin"
+                    to="/"
                     className="text-primary border border-t-0 border-l-0 border-r-0 border-b-2 border-sky-600"
                   >
                     Sign In
