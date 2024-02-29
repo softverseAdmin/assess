@@ -169,7 +169,7 @@ const StudentSignUp = () => {
           <div className="p-4 ">
             <h2 className="mb-4 text-2xl w-fit font-bold text-black dark:text-black sm:text-title-xl2">
               Sign Up
-              <hr className="border border-2 border-sky-600 w-[85%]" />
+              <hr className="border-2 border-sky-600 w-[85%]" />
             </h2>
             <form onSubmit={handleSubmit}>
               <div className="flex gap-3">
@@ -359,7 +359,7 @@ const StudentSignUp = () => {
                 <button
                   type="submit"
                   value="Sign In"
-                  className="w-full cursor-pointer rounded-lg border border-primary bg-sky-600 w-fit p-3 rounded text-white p-4 text-white transition hover:bg-opacity-90"
+                  className="w-full cursor-pointer rounded-lg border border-primary bg-sky-600  p-4 text-white transition hover:bg-opacity-90"
                 >
                   Sign Up
                 </button>

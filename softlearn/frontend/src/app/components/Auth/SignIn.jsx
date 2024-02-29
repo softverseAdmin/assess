@@ -1,19 +1,59 @@
 import React, { useState } from "react";
-import  Link  from "next/link";
+import Link from "next/link";
 import { PiEyeClosedThin, PiStudent } from "react-icons/pi";
 import { FaEye } from "react-icons/fa";
 import { MdHomeWork } from "react-icons/md";
+import { useRouter } from "next/navigation";
+import { useMutation} from "react-query";
+import { signIn } from "@/app/apiCall/apiClient";
 
 const Page = () => {
+  const navigator = useRouter();
   const [show, setShow] = useState(false);
   const [company, setIsCompany] = useState(false);
   const [student, setIsStudent] = useState(false);
 
-  company && console.log("Company:", company);
-  student && console.log("Student:", student);
+
+  const [input, setInput] = useState({
+    account_type: "",
+    email: "",
+    password: "",
+  });
+   company &&
+     setInput({
+       account_type: "company",
+     });
+   student &&
+     setInput({
+       account_type: "student",
+     });
+
+   console.log(input);
+
+   const handleChange = (e) => {
+     setInput((prev) => ({
+       ...prev,
+       [e.target.name]: e.target.value,
+     }));
+   };
+
+  const mutation = useMutation(signIn, {
+    onSuccess: async (data) => {
+      if (data) {
+        dispatch(authActions.login({}));
+        alert("Login success.");
+        navigator.push("/auth/company");
+      }
+    },
+    onError: async (error) => {
+      // toast.error(error);
+      alert(error);
+    },
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    mutation.mutate(input);
   };
 
   return (
@@ -159,7 +199,7 @@ const Page = () => {
           <div className="p-4 ">
             <h2 className="mb-4 text-2xl w-fit font-bold text-black dark:text-black sm:text-title-xl2">
               Sign In
-              <hr className="border border-2 border-sky-600 w-[85%]" />
+              <hr className="border-2 border-sky-600 w-[85%]" />
             </h2>
             <div className="flex gap-3 justify-center items-center mb-3">
               <div
@@ -169,7 +209,7 @@ const Page = () => {
                 }}
                 className={`${
                   company && "border-sky-600"
-                } delay-400 border border-2 transition-all duration-400 ease-in-out flex flex-col shadow rounded cursor-pointer flex-1 justify-center items-center py-2`}
+                } delay-400 border-2 transition-all duration-400 ease-in-out flex flex-col shadow rounded cursor-pointer flex-1 justify-center items-center py-2`}
               >
                 <MdHomeWork className="w-[10vw] h-[10vh]" />
                 <span>Company</span>
@@ -181,7 +221,7 @@ const Page = () => {
                 }}
                 className={`${
                   student && "border-sky-600"
-                } delay-400 border border-2 transition-all duration-400 ease-in-out flex flex-col shadow rounded cursor-pointer flex-1 justify-center items-center py-2`}
+                } delay-400 border-2 transition-all duration-400 ease-in-out flex flex-col shadow rounded cursor-pointer flex-1 justify-center items-center py-2`}
               >
                 <PiStudent className="w-[10vw] h-[10vh]" />
                 <span>Student</span>
@@ -194,6 +234,8 @@ const Page = () => {
                 </label>
                 <div className="relative">
                   <input
+                    onChange={handleChange}
+                    name="email"
                     type="email"
                     placeholder="Enter your email"
                     className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-14 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-black dark:focus:border-primary"
@@ -225,6 +267,8 @@ const Page = () => {
                 </label>
                 <div className="relative">
                   <input
+                    onChange={handleChange}
+                    name="password"
                     type={show ? "text" : "password"}
                     placeholder="6+ Characters, 1 Capital letter"
                     className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-14 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-black dark:focus:border-primary"
@@ -273,7 +317,7 @@ const Page = () => {
                 <button
                   type="submit"
                   value="Sign In"
-                  className="w-full cursor-pointer rounded-lg border border-primary bg-sky-600 w-fit p-3 rounded text-white p-4 text-white transition hover:bg-opacity-90"
+                  className="w-full cursor-pointer border border-primary bg-sky-600 rounded p-4 text-white transition hover:bg-opacity-90"
                 >
                   Sign In
                 </button>

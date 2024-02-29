@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 //import { useNavigate } from "react-router-dom";
 import { PiStudent } from "react-icons/pi";
 import { MdArrowForward } from "react-icons/md";
 import { MdHomeWork } from "react-icons/md";
+import { useMutation, useQueryClient } from "react-query";
+import { signIn } from "@/app/apiCall/apiClient";
 
 const SignUp = () => {
   //const navigator = useNavigate();
@@ -16,10 +17,23 @@ const SignUp = () => {
   company && console.log("Company:", company);
   student && console.log("Student:", student);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  const queryClient = useQueryClient();
 
+  const mutation = useMutation(signIn, {
+    onSuccess: async (data) => {
+      await queryClient.invalidateQueries("validateToken");
+      if (data) {
+        dispatch(authActions.login({}));
+        alert("Login success.");
+        navigator.push("/auth/company");
+      }
+    },
+    onError: async (error) => {
+      // toast.error(error);
+      alert(error);
+    },
+  });
+  
   const handleNext = () => {
     if (!company && !student) {
       setError("Please select your desired account types!");
@@ -30,6 +44,12 @@ const SignUp = () => {
     } else {
       return;
     }
+  };
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    mutation.mutate(input);
   };
 
   return (
@@ -173,7 +193,7 @@ const SignUp = () => {
             <div className="p-4 ">
               <h2 className="mb-4 text-2xl w-fit font-bold text-black dark:text-black sm:text-title-xl2">
                 Sign Up As
-                <hr className="border border-2 border-sky-600 w-[85%]" />
+                <hr className="border-2 border-sky-600 w-[85%]" />
               </h2>
               <div className="flex gap-3 justify-center items-center mb-3">
                 <div
@@ -183,7 +203,7 @@ const SignUp = () => {
                   }}
                   className={`${
                     company && "border-sky-600"
-                  } delay-400 border border-2 transition-all duration-400 ease-in-out flex flex-col shadow rounded cursor-pointer flex-1 justify-center items-center py-2`}
+                  } delay-400 border-2 transition-all duration-400 ease-in-out flex flex-col shadow rounded cursor-pointer flex-1 justify-center items-center py-2`}
                 >
                   <MdHomeWork className="w-[10vw] h-[10vh]" />
                   <span>Company</span>
@@ -195,7 +215,7 @@ const SignUp = () => {
                   }}
                   className={`${
                     student && "border-sky-600"
-                  } delay-400 border border-2 transition-all duration-400 ease-in-out flex flex-col shadow rounded cursor-pointer flex-1 justify-center items-center py-2`}
+                  } delay-400 border-2 transition-all duration-400 ease-in-out flex flex-col shadow rounded cursor-pointer flex-1 justify-center items-center py-2`}
                 >
                   <PiStudent className="w-[10vw] h-[10vh]" />
                   <span>Student</span>
