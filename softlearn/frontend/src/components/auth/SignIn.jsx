@@ -51,19 +51,16 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!input.account_type){
+    if (!input.account_type) {
       toast.error("Please select an account type.");
       return;
-    }
-    else if(!input.email){
+    } else if (!input.email) {
       toast.error("Please enter an email address.");
-    }
-    else if(!input.password){
+    } else if (!input.password) {
       toast.error("Please enter a valid password.");
     }
     mutation.mutate(input);
   };
-
 
   return (
     <div className="rounded-sm container mx-auto bg-white flex justify-center items-center min-h-[90vh] p-8">

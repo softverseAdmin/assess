@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SignUp from "./components/auth/SignUp";
 import StudentSignUp from "./components/auth/StudentSignUp";
+import ForgetPassword from "./components/auth/ForgetPassword";
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
     <ToastContainer />
         <Routes>
           <Route path="/" element={ <SignIn/> }/>
+          <Route path="/forget-password" element={ <ForgetPassword/> }/>
           <Route path="/signup" element={ <SignUp/> }/>
           <Route path="/signup/student" element={ <StudentSignUp/> }/>
           <Route path="/menu/profile" element={<MenuLayout><div className="h-screen">Profile</div></MenuLayout> }/>
