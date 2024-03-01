@@ -9,22 +9,22 @@ import { MdDashboard } from "react-icons/md";
 const lists = [
   {
     title: "Profile",
-    url: "/profile",
+    url: "/menu/profile",
     icon: React.createElement(CgProfile),
   },
   {
     title: "Setting",
-    url: "/setting",
+    url: "/menu/tables",
     icon: React.createElement(MdDashboard),
   },
   {
     title: "Logout",
-    url: "/setting",
+    url: "/menu/charts",
     icon: React.createElement(MdDashboard),
   },
   {
     title: "Logout",
-    url: "/setting",
+    url: "/menu/charts",
     icon: React.createElement(MdDashboard),
   },
 ];
@@ -35,7 +35,7 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
   return (
     <header className="sticky bg-white p-4 top-0 z-999 flex w-full drop-shadow-1">
       <div className="flex flex-1 justify-between items-center">
-        <h2 className="text-2xl font-bold hidden md:block">SoftLearn</h2>
+        <h2 className="text-2xl font-bold hidden lg:block">SoftLearn</h2>
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -67,6 +67,7 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
                 const { title, url, icon } = list;
                 return (
                   <Link
+                    onClick={() => setOpen(!open)}
                     className="p-2 flex gap-2 delay-100 border hover:border-teal-300 transition-all ease-in-out duration-500 hover:bg-black hover:text-white items-center bg-zinc-50 m-2"
                     to={url}
                     key={index}
