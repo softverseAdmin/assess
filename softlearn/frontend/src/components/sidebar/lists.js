@@ -9,7 +9,7 @@ import React from "react";
 
 export const privateLists = [
   {
-    name: "Dashboard",
+    name: "Courses",
     url: "",
     subMenu: [
       {

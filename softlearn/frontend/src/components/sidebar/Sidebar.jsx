@@ -5,60 +5,9 @@ import { FaBookReader } from "react-icons/fa";
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
-  const NavList = ({
-    name,
-    url,
-    subMenu,
-    icon,
-  }) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-      <>
-        <li
-          onClick={() => {
-            subMenu && setOpen(!open);
-            subMenu.length === 0 && setSidebarOpen(!sidebarOpen);
-          }}
-        >
-          <Link
-            className="flex relative justify-start items-center gap-4 md:gap-2 hover:bg-black p-3 w-full text-xl font-semibold text-white"
-            to={url}
-          >
-            {icon} {name}
-            {subMenu.length !== 0 &&
-              (open ? (
-                <RiArrowDropUpLine className="absolute right-2" size={30} />
-              ) : (
-                <RiArrowDropDownLine className="absolute right-2" size={30} />
-              ))}
-          </Link>
-        </li>
-        {open &&
-          subMenu?.map((menu, index) => {
-            const { name, url, icon } = menu;
-            return (
-              <li
-                onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="pl-4"
-                key={index}
-              >
-                <Link
-                  className=" flex justify-start gap-3 items-center hover:bg-black p-2 w-full text-white text-lg"
-                  to={url}
-                >
-                  {icon} {name}
-                </Link>
-              </li>
-            );
-          })}
-      </>
-    );
-  };
-
   return (
     <div
-      className={`absolute left-0 top-0 z-50 flex h-screen w-full bg-slate-900 md:w-1/2 lg:w-1/6 flex-col overflow-y-hidden shadow  border-r duration-500 ease-linear lg:static lg:translate-x-0 ${
+      className={`absolute left-0 top-0 z-50 flex h-screen w-full bg-slate-900 max-w-xs flex-col overflow-y-hidden shadow  border-r duration-500 ease-linear lg:static lg:translate-x-0 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
@@ -117,6 +66,52 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         </div>
       </div>
     </div>
+  );
+};
+
+const NavList = ({ name, url, subMenu, icon, sidebarOpen, setSidebarOpen }) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <li
+        onClick={() => {
+          !subMenu?.length && setSidebarOpen(!setSidebarOpen);
+          subMenu && setOpen(!open);
+        }}
+      >
+        <Link
+          className="flex relative justify-start items-center gap-4 md:gap-2 hover:bg-black p-3 w-full text-xl font-semibold text-white"
+          to={url}
+        >
+          {icon} {name}
+          {subMenu?.length !== 0 &&
+            (open ? (
+              <RiArrowDropUpLine className="absolute right-2" size={30} />
+            ) : (
+              <RiArrowDropDownLine className="absolute right-2" size={30} />
+            ))}
+        </Link>
+      </li>
+      {open &&
+        subMenu?.map((menu, index) => {
+          const { name, url, icon } = menu;
+          return (
+            <li
+              onClick={() => setSidebarOpen(!setSidebarOpen)}
+              className="pl-4"
+              key={index}
+            >
+              <Link
+                className=" flex justify-start gap-3 items-center hover:bg-black p-2 w-full text-white text-lg"
+                to={url}
+              >
+                {icon} {name}
+              </Link>
+            </li>
+          );
+        })}
+    </>
   );
 };
 

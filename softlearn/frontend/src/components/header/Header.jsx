@@ -11,7 +11,7 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
             e.stopPropagation();
             setSidebarOpen(!sidebarOpen);
           }}
-          className="block rounded-sm  p-1.5  lg:hidden"
+          className="block rounded-sm  p-1.5 lg:hidden"
         >
           {sidebarOpen ? (
             <RxCross2 className="bg-none" size={32} />

@@ -30,9 +30,9 @@ const SignUp = () => {
   };
 
   return (
-    <div className="rounded-sm container mx-auto bg-white flex justify-center items-center min-h-[90vh] p-8">
+    <div className="rounded-sm container mx-auto bg-white flex justify-center items-center min-h-screen p-8">
       <div className="flex flex-1 shadow-lg rounded-lg">
-        <div className="hidden py-8 w-full xl:flex flex-1 justify-center items-center bg-sky-300 rounded-l-lg">
+        <div className="hidden py-8 w-full lg:flex flex-1 justify-center items-center bg-sky-300 rounded-l-lg">
           <div className="px-26 py-17.5 text-center">
             <h1 className="text-3xl font-bold">SoftLearn</h1>
 

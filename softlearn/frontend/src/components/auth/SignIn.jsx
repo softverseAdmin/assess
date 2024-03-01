@@ -63,11 +63,11 @@ const SignIn = () => {
   };
 
   return (
-    <div className="rounded-sm container mx-auto bg-white flex justify-center items-center min-h-[90vh] p-8">
+    <div className="rounded-sm container mx-auto bg-white flex justify-center items-center min-h-screen p-8">
       <div className="flex flex-1 shadow-lg rounded-lg">
-        <div className="hidden w-full xl:flex flex-1 justify-center items-center bg-sky-300 rounded-l-lg">
-          <div className="px-26 py-17.5 text-center">
-            <Link className="mb-5.5 inline-block" href="/">
+        <div className="hidden w-full lg:flex flex-1 justify-center items-center bg-sky-300 rounded-l-lg">
+          <div className="text-center">
+            <Link className="inline-block" to="/">
               SoftLearn
             </Link>
 
@@ -209,10 +209,11 @@ const SignIn = () => {
             </h2>
             <div className="flex gap-3 justify-center items-center mb-3">
               <div
-                onClick={() => {
+                onClick={(e) => {
                   setIsCompany(!company);
                   setIsStudent(false);
                   setInput({
+                    ...input,
                     account_type: "company",
                   });
                 }}
@@ -227,6 +228,7 @@ const SignIn = () => {
                 onClick={() => {
                   setIsCompany(false);
                   setInput({
+                    ...input,
                     account_type: "student",
                   });
                   setIsStudent(!student);
@@ -341,7 +343,7 @@ const SignIn = () => {
                 <p>
                   Forget Password?{" "}
                   <Link
-                    to="/signup"
+                    to="/forget-password"
                     className="text-primary border border-t-0 border-l-0 border-r-0 border-b-2 border-sky-600"
                   >
                     Reset
